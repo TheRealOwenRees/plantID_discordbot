@@ -50,7 +50,7 @@ async def start_id(ctx, *args):
         # message results
         common_names_str = ", ".join(str(elem) for elem in response[0]['Common Names'])
         
-        await ctx.reply(f"My best guess is ***{response[0]['Scientific Name']}*** with {round(response[0]['Score']*100, 2)}% confidence. Common names include **{common_names_str}**. For more information visit <https://www.gbif.org/species/{response[0]['GBIF']}>\n\nAlternatives include:\n*{response[1]['Scientific Name']} ({round(response[1]['Score']*100, 2)}%)\n{response[2]['Scientific Name']} ({round(response[2]['Score']*100, 2)}%)*")
+        await ctx.reply(f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score']*100:.0f}% confidence. Common names include **{common_names_str}**. For more information visit <https://www.gbif.org/species/{response[0]['GBIF']}>\n\nAlternatives include: *{response[1]['Scientific Name']} ({response[1]['Score']*100:.0f}%), {response[2]['Scientific Name']} ({response[2]['Score']*100:.0f}%)*")
 
         # embed results
         # embed = discord.Embed(title="Here are the top 3 results:", colour=discord.Colour(0xa08bad), timestamp=datetime.datetime.utcnow())
