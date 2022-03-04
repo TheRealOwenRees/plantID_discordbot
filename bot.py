@@ -14,7 +14,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 bot = commands.Bot(command_prefix='!', case_insensitive=True, help_command=None)      # character used to invoke bot commands
 
 
-# terminal confirmation of bot startup
+# confirmation of bot startup
 @bot.event
 async def on_ready():
     print(f'{bot.user} has connected to Discord!')
@@ -35,6 +35,13 @@ async def on_command_error(ctx, error):
         raise error
 
 
+# ignore non !id commands
+@bot.event
+async def on_message(message):
+    if message.content.lower().startswith('!id'):
+        await bot.process_commands(message)
+
+
 # PLANT ID command listener
 @bot.command(name='id', help="Runs the Plant ID bot. Type '!help id' for more detailed info.")
 async def start_id(ctx, *args):
@@ -51,26 +58,6 @@ async def start_id(ctx, *args):
         common_names_str = ", ".join(str(elem) for elem in response[0]['Common Names'])
         
         await ctx.reply(f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score']*100:.0f}% confidence. Common names include **{common_names_str}**. For more information visit <https://www.gbif.org/species/{response[0]['GBIF']}>\n\nAlternatives include: *{response[1]['Scientific Name']} ({response[1]['Score']*100:.0f}%), {response[2]['Scientific Name']} ({response[2]['Score']*100:.0f}%)*")
-
-        # embed results
-        # embed = discord.Embed(title="Here are the top 3 results:", colour=discord.Colour(0xa08bad), timestamp=datetime.datetime.utcnow())
-        # embed.set_thumbnail(url=image_paths[0])
-        # embed.set_author(name=bot.user, icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-        # embed.set_footer(text="Powered by Pl@ntNet", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-
-        # for result in response:
-        #     common_names_str = ", ".join(str(elem) for elem in result['Common Names'])
-        #     embed.add_field(name="Name", value=result['Scientific Name'])
-        #     embed.add_field(name="Genus", value=result['Genus'])
-        #     embed.add_field(name="Family", value=result['Family'])
-        #     embed.add_field(name="Common Names", value=common_names_str)
-        #     embed.add_field(name="Links", value="https://www.gbif.org/species/"+result['GBIF'])
-        #     embed.add_field(name = "Confidence %", value = round(result['Score']*100, 2))
-        #     embed.add_field(name = chr(173), value = chr(173))
-        #     embed.add_field(name = chr(173), value = chr(173))
-        #     embed.add_field(name = chr(173), value = chr(173))
-
-        # await ctx.reply(embed=embed)
     else:
         await ctx.reply("Attach at least one photo to ID.")
 
