@@ -28,6 +28,8 @@ async def on_command_error(ctx, error):
         await ctx.reply("There is a problem processing this image, please try another.") 
         with open('err.log', 'a') as f:
             f.write(f'Time: {datetime.datetime.utcnow()}\nCommand Invoke Error: {error}\n\n')
+    elif isinstance(error, commands.CommandNotFound):
+        await ctx.reply("Are you having a stroke? Did you mean *!id*?")
     else:
         with open('err.log', 'a') as f:
             f.write(f'Time: {datetime.datetime.utcnow()}\nUnspecified Error: {error}\n\n')
