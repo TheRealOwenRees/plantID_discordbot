@@ -30,20 +30,8 @@ def plantnet_id(images, *organs):
     json_data = json.loads(req.text)
 
     # format output
-    # limit to 3 results, because discord embeds have limits
     results_list = []
     
-    # for i in range(3):
-    #     d= {
-    #         "Score": json_data['results'][i]['score'],
-    #         "Scientific Name": json_data['results'][i]['species']['scientificNameWithoutAuthor'],
-    #         "Genus": json_data['results'][i]['species']['genus']['scientificNameWithoutAuthor'],
-    #         "Family": json_data['results'][i]['species']['family']['scientificNameWithoutAuthor'],
-    #         "Common Names": json_data['results'][i]['species']['commonNames'],
-    #         "GBIF": json_data['results'][i]['gbif'].get("id")
-    #     }
-    #     results_list.append(d)
-
     for result in json_data['results']:
         d= {
             "Score": result['score'],
@@ -51,8 +39,10 @@ def plantnet_id(images, *organs):
             "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
             "Family": result['species']['family']['scientificNameWithoutAuthor'],
             "Common Names": result['species']['commonNames'],
-            "GBIF": result['gbif'].get("id")
+            # "GBIF": result['gbif'].get('id')
         }
+        d['GBIF'] = result['gbif'].get('id') if result['gbif'] else ""
+
         results_list.append(d)
 
     return results_list

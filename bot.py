@@ -62,17 +62,27 @@ async def start_id(ctx, *args):
             if int(score) >= 10:                                                                # only add alternatives if the confidence score is > 10%
                 alternatives_list.append(result['Scientific Name'] + " (" + score + "%)")
 
-        common_names_str =  ", ".join(str(elem) for elem in response[0]['Common Names'])        # convert list to string
-        alternatives_str = ", ".join(str(elem) for elem in alternatives_list)                   # convert list to string
+        # alternatives - join list as string if true
+        if alternatives_list:
+            alternatives_str = "Alternatives include: " + "*" + ", ".join(str(elem) for elem in alternatives_list) + "*."
+        else:
+            alternatives_str = "No alternatives were found."
+        
+        # common names - join list as string if true
+        if response[0]['Common Names']:
+            common_names_str =  "Common names include " + "**" + ", ".join(str(elem) for elem in response[0]['Common Names']) + "**."
+        else:
+            common_names_str =  "No common names were found."
 
-        # await ctx.reply(f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score']*100:.0f}% confidence. Common names include **{common_names_str}**. For more information visit <https://www.gbif.org/species/{response[0]['GBIF']}>\n\nAlternatives include: *{response[1]['Scientific Name']} ({response[1]['Score']*100:.0f}%), {response[2]['Scientific Name']} ({response[2]['Score']*100:.0f}%)*")
+        # GBIF data - create url to gbif if id is found
+        gbif_str = "For more information visit <https://www.gbif.org/species/" + response[0]['GBIF'] + ">" if response[0]['GBIF'] else ""
 
-        await ctx.reply(f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score']*100:.0f}% confidence. Common names include **{common_names_str}**. For more information visit <https://www.gbif.org/species/{response[0]['GBIF']}>\n\nAlternatives include: *{alternatives_str}*")
+        await ctx.reply(f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score']*100:.0f}% confidence. {common_names_str} {gbif_str}\n\n{alternatives_str}")
     else:
         await ctx.reply("Attach at least one photo to ID.")
 
 
-# plant ID help
+# PLANT ID HELP command listener
 @bot.command(name='help')
 async def help_id(ctx, *args):
     await ctx.message.add_reaction(emoji = '\N{THUMBS UP SIGN}')
