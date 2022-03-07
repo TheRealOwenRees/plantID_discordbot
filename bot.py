@@ -107,7 +107,7 @@ async def help_id(ctx, *args):
                     value="- all photos should be of the same plant\n- take photos of organs, not the whole plant\n- "
                           "best results will be achieved by using a mixture of organs\n- use images at least "
                           "600x600px\n- add an argument per attached photo, in order.\n- note: incorrect or omitted "
-                          "arguments will default to 'flower'\n\n",
+                          "arguments will default to auto-detect.\n\n",
                     inline=True)
     await ctx.send(embed=embed)
 

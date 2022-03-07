@@ -1,6 +1,7 @@
 # custom ignores
 TODO
 err.log
+.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
