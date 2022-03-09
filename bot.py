@@ -7,10 +7,11 @@ from plantnet import plantnet_id
 
 # environment variables for test server
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
+# character used to invoke bot commands
 bot = commands.Bot(command_prefix='!', case_insensitive=True, help_command=None,
-                   activity=discord.Game(name="!help id"))  # character used to invoke bot commands
+                   activity=discord.Game(name="!help id"))
 
 
 # confirmation of bot startup
@@ -112,4 +113,4 @@ async def help_id(ctx, *args):
     await ctx.send(embed=embed)
 
 
-bot.run(TOKEN)
+bot.run(DISCORD_TOKEN)
