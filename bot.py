@@ -80,7 +80,7 @@ async def start_id(ctx, *args):
                 common_names_str = "No common names were found."
 
             # GBIF data - create url to GBIF if id is found
-            gbif_str = "\nFor more information visit: <https://www.gbif.org/species/" + response[0]['GBIF'] + ">" if \
+            gbif_str = "<https://www.gbif.org/species/" + response[0]['GBIF'] + ">" if \
                 response[0]['GBIF'] else ""
 
             # PFAF URL - create url to PFAF if latin name is found
@@ -88,7 +88,7 @@ async def start_id(ctx, *args):
 
             await ctx.reply(
                 f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
-                f"confidence. {common_names_str} {gbif_str}\n\n{pfaf_str}\n\n{alternatives_str}")
+                f"confidence. {common_names_str} For more information visit:\n{pfaf_str}\n\n{gbif_str}\n\n{alternatives_str}")
         else:
             await ctx.reply('The PlantNet API is currently unresponsive. Please try later.')
 
