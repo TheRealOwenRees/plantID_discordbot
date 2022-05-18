@@ -23,11 +23,14 @@ def plantnet_id(images, *organs):
         if organ in accepted_organs:
             payload['organs'].append(organ)
         else:
-            payload['organs'].append('auto')      # argument defaults to 'flower' if incorrect or omitted
+            payload['organs'].append('auto')      # argument default if incorrect or omitted
     
     # send request to API as a url and return as JSON
     req = requests.get(api_endpoint, params=payload)
-    json_data = json.loads(req.text)
+    if (req.status_code == 200):
+        json_data = json.loads(req.text)
+    else:
+        return False
 
     # format output
     results_list = []

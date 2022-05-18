@@ -55,36 +55,43 @@ async def start_id(ctx, *args):
         for attachment in ctx.message.attachments:
             image_paths.append(attachment.url)
         response = plantnet_id(image_paths, *args)
+        
+        if response:
+            # message results
+            alternatives_list = []  # a list for all the alternative plant IDs
 
-        # message results
-        alternatives_list = []  # a list for all the alternative plant IDs
+            for result in response[1:]:
+                score = format(result['Score'] * 100, ".0f")
+                if int(score) >= 10:  # only add alternatives if the confidence score is > 10%
+                    alternatives_list.append(result['Scientific Name'] + " (" + score + "%)")
 
-        for result in response[1:]:
-            score = format(result['Score'] * 100, ".0f")
-            if int(score) >= 10:  # only add alternatives if the confidence score is > 10%
-                alternatives_list.append(result['Scientific Name'] + " (" + score + "%)")
+            # alternatives - join list as string if true
+            if alternatives_list:
+                alternatives_str = "Alternatives include: " + "*" + ", ".join(
+                    str(elem) for elem in alternatives_list) + "*."
+            else:
+                alternatives_str = "No alternatives were found."
 
-        # alternatives - join list as string if true
-        if alternatives_list:
-            alternatives_str = "Alternatives include: " + "*" + ", ".join(
-                str(elem) for elem in alternatives_list) + "*."
+            # common names - join list as string if true
+            if response[0]['Common Names']:
+                common_names_str = "Common names include " + "**" + ", ".join(
+                    str(elem) for elem in response[0]['Common Names']) + "**."
+            else:
+                common_names_str = "No common names were found."
+
+            # GBIF data - create url to GBIF if id is found
+            gbif_str = "<https://www.gbif.org/species/" + response[0]['GBIF'] + ">" if \
+                response[0]['GBIF'] else ""
+
+            # PFAF URL - create url to PFAF if latin name is found
+            pfaf_str = "<https://pfaf.org/user/Plant.aspx?LatinName=" + response[0]['Scientific Name'].replace(" ", "+") + ">"
+
+            await ctx.reply(
+                f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
+                f"confidence. {common_names_str} For more information visit:\n{pfaf_str}\n\n{gbif_str}\n\n{alternatives_str}")
         else:
-            alternatives_str = "No alternatives were found."
+            await ctx.reply('The PlantNet API is currently unresponsive. Please try later.')
 
-        # common names - join list as string if true
-        if response[0]['Common Names']:
-            common_names_str = "Common names include " + "**" + ", ".join(
-                str(elem) for elem in response[0]['Common Names']) + "**."
-        else:
-            common_names_str = "No common names were found."
-
-        # GBIF data - create url to gbif if id is found
-        gbif_str = "For more information visit <https://www.gbif.org/species/" + response[0]['GBIF'] + ">" if \
-            response[0]['GBIF'] else ""
-
-        await ctx.reply(
-            f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
-            f"confidence. {common_names_str} {gbif_str}\n\n{alternatives_str}")
     else:
         await ctx.reply("Attach at least one photo to ID.")
 
