@@ -90,7 +90,7 @@ async def start_id(ctx, *args):
                 f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
                 f"confidence. {common_names_str} For more information visit:\n{pfaf_str}\n\n{gbif_str}\n\n{alternatives_str}")
         else:
-            await ctx.reply('The PlantNet API is currently unresponsive. Please try later.')
+            await ctx.reply('There was a problem processing this image. Either the image format is incorrect or the API is currently down.')
 
     else:
         await ctx.reply("Attach at least one photo to ID.")
