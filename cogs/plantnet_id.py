@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 import discord
 from discord.ext.commands import Cog, command
 
-load_dotenv()
+load_dotenv()   # load environment variables for test server
 API_KEY = os.getenv('PLANTNET_API_KEY')
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 

@@ -19,7 +19,7 @@ class BotInfo(Cog):
         info = await self.bot.application_info()
         embed = discord.Embed(
             title='Plant ID Bot Info',
-            description='This bot identifies photos of plant organs via the PlantNet API.',
+            description=f'{info.description}',
             colour=0x41c03f
         ).add_field(
             name=f'`{self.prefix}info`',

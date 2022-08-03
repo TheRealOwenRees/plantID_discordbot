@@ -9,8 +9,7 @@ from discord.ext import commands
 from cogs.plantnet_id import PlantnetID
 from cogs.bot_info import BotInfo
 
-# environment variables for test server
-load_dotenv()
+load_dotenv()   # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 async def main():
@@ -19,7 +18,7 @@ async def main():
         command_prefix=prefix, 
         case_insensitive=True, 
         help_command=None,
-        activity=discord.Game(name=f'Plants | {prefix}idhelp')
+        activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
     )
     bot.add_cog(PlantnetID(bot))
     bot.add_cog(BotInfo(bot))
