@@ -1,7 +1,6 @@
 import os
 import requests
 import json
-from datetime import datetime
 from dotenv import load_dotenv
 
 import discord
@@ -15,10 +14,13 @@ api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 class PlantnetID(Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.prefix = '!'
+        if 'BOT_PREFIX' in os.environ:
+            self.prefix = os.environ['BOT_PREFIX']
 
     # PLANT ID command listener
-    @command(name='id')
-    async def start_id(self, ctx, *args):
+    @command()
+    async def id(self, ctx, *args):
         try:
             if len(ctx.message.attachments) > 5:
                 await ctx.reply("Please attach up to 5 photos max.")
@@ -70,14 +72,13 @@ class PlantnetID(Cog):
 
 
     # PLANT ID HELP command listener
-    @command(name='help-id')
-    async def help_id(self, ctx, *args):
+    @command(aliases=['helpid'])
+    async def idhelp(self, ctx, *args):
         await ctx.message.add_reaction(emoji='\N{THUMBS UP SIGN}')
         embed = discord.Embed(title="Let's break this down a bit:", colour=discord.Colour(0x80eef9),
                             description="Attach up to 5 photos to your message, and then use the following syntax: "
                                         "```\n!id [args...]\n\neg. !id flower leaf leaf```\nAccepted arguments are "
-                                        "'flower', 'leaf', 'fruit', 'bark'.\n\n",
-                            timestamp=datetime.utcnow())
+                                        "'flower', 'leaf', 'fruit', 'bark'.\n\n")
         # embed.set_image(url="https://cdn.discordapp.com/embed/avatars/0.png")
         # embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_author(name="Plant ID Bot Help", url="https://discordapp.com",
@@ -89,6 +90,8 @@ class PlantnetID(Cog):
                             "600x600px\n- add an argument per attached photo, in order.\n- note: incorrect or omitted "
                             "arguments will default to auto-detect.\n\n",
                         inline=True)
+        embed.add_field(name=f"`{self.prefix}info`",
+                        value="for more commands")
         await ctx.send(embed=embed)
 
 
@@ -112,7 +115,7 @@ class PlantnetID(Cog):
         
         # send request to API as a url and return as JSON
         req = requests.get(api_endpoint, params=payload)
-        if (req.status_code == 200):
+        if req.status_code == 200:
             json_data = json.loads(req.text)
         else:
             return False

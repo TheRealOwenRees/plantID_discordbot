@@ -1,23 +1,28 @@
-import asyncio
 import os
+import asyncio
 
 from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
+
 from cogs.plantnet_id import PlantnetID
+from cogs.bot_info import BotInfo
 
 # environment variables for test server
 load_dotenv()
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 async def main():
+    prefix = os.environ.get('BOT_PREFIX', '!')
     bot = commands.Bot(
-        command_prefix='!', case_insensitive=True, 
+        command_prefix=prefix, 
+        case_insensitive=True, 
         help_command=None,
-        activity=discord.Game(name="!help-id")
+        activity=discord.Game(name=f'Plants | {prefix}idhelp')
     )
     bot.add_cog(PlantnetID(bot))
+    bot.add_cog(BotInfo(bot))
 
     # confirmation of bot startup
     @bot.event
