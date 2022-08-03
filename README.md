@@ -37,7 +37,7 @@ Want to contribute? Simply fork, clone, edit and then create a pull request. Det
 
 ## Credits
 - [themanifold](https://github.com/themanifold) who cast his careful eye over the code, making sure that I wasn't making any obvious errors, and for making my todo list longer each day
-- [Country Roles](https://github.com/dolphingarlic/country-roles) from which my knowledge of [Discord.py] 'cogs' was solidified. Their implemtation of 'BotInfo' was used to create more information on the bot, and generally helped me clean up my code 
+- [Country Roles](https://github.com/dolphingarlic/country-roles) from which my knowledge of [Discord.py] 'cogs' was solidified. Their implementation of 'BotInfo' was used to create more information on the bot, and generally helped me clean up my code 
 
 ## License
 
