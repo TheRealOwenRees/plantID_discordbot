@@ -78,7 +78,7 @@ class BotInfo(Cog):
     #Sends a bot invite link
     @command()
     async def invite(self, ctx):
-        await ctx.send('https://discord.com/oauth2/authorize?client_id=948227126094598204&permissions=18432&scope=bot')
+        await ctx.send('https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot')
 
 
 
