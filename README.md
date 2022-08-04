@@ -14,8 +14,8 @@ Plant ID Bot identifies plants from photos of their organs, passing to the [Plan
 
 Plant ID Bot uses a small number of prerequisites in order to work properly:
 
-- [Discord.py] - a modern, easy to use, feature-rich, and async ready API wrapper for Discord
-- [Beautiful Soup] - a Python library for pulling data out of HTML and XML files
+- [Discord.py] - a modern discord bot framework built in python.
+- [Beautiful Soup] - a python library for pulling data out of HTML and XML files
 - [python-dotenv] - for reading local .env files during development
 
 
@@ -48,7 +48,7 @@ MIT
 
    [git-repo-url]: <https://github.com/TheRealOwenRees/plantID_discordbot>
    [Plantnet API]: <https://my.plantnet.org/>
-   [Discord.py]: <https://discordpy.readthedocs.io/en/stable/>
+   [Pycord]: <https://pycord.dev/>
    [GBIF]: <https://pypi.org/project/python-dotenv/>
    [PFAF]: <https://pfaf.org>
    [python-dotenv]: <https://pypi.org/project/python-dotenv/>
