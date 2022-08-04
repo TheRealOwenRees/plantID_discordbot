@@ -15,6 +15,7 @@ Plant ID Bot identifies plants from photos of their organs, passing to the [Plan
 Plant ID Bot uses a small number of prerequisites in order to work properly:
 
 - [Discord.py] - a modern, easy to use, feature-rich, and async ready API wrapper for Discord
+- [Beautiful Soup] - a Python library for pulling data out of HTML and XML files
 - [python-dotenv] - for reading local .env files during development
 
 
@@ -28,7 +29,7 @@ If you fork this repository and wish to host your own version of this bot, you w
 - Create a new application and bot at the [Discord Developer Portal](https://discord.com/developers/applications). Follow this [guide](https://realpython.com/how-to-make-a-discord-bot-python/) if you are unsure.
 - create a local .env file to store 'DISCORD_TOKEN' and 'PLANTNET_API_KEY'. Add both your bot's secret token and PlantNet API key here repectively
 - Enable the bot permissions 'Read Messages/View Channels', 'Send Messages', 'Embed Links', 'Add Reactions'
-- Host the files on your platform of choice. A procfile is included if you wish to [Heroku](https://www.heroku.com)
+- Host the files on your platform of choice. A procfile is included if you wish to use [Heroku](https://www.heroku.com)
 - Add the bot's secret token and your PlantNet API key to your platform's environment variables under the keys 'DISCORD_TOKEN' and 'PLANTNET_API_KEY'. 
 
 ## Development
@@ -45,21 +46,10 @@ MIT
 
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
-   [dill]: <https://github.com/joemccann/dillinger>
    [git-repo-url]: <https://github.com/TheRealOwenRees/plantID_discordbot>
    [Plantnet API]: <https://my.plantnet.org/>
    [Discord.py]: <https://discordpy.readthedocs.io/en/stable/>
    [GBIF]: <https://pypi.org/project/python-dotenv/>
    [PFAF]: <https://pfaf.org>
-   [markdown-it]: <https://github.com/markdown-it/markdown-it>
    [python-dotenv]: <https://pypi.org/project/python-dotenv/>
-   [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
-   [jQuery]: <http://jquery.com>
-   [@tjholowaychuk]: <http://twitter.com/tjholowaychuk>
-
-   [PlDb]: <https://github.com/joemccann/dillinger/tree/master/plugins/dropbox/README.md>
-   [PlGh]: <https://github.com/joemccann/dillinger/tree/master/plugins/github/README.md>
-   [PlGd]: <https://github.com/joemccann/dillinger/tree/master/plugins/googledrive/README.md>
-   [PlOd]: <https://github.com/joemccann/dillinger/tree/master/plugins/onedrive/README.md>
-   [PlMe]: <https://github.com/joemccann/dillinger/tree/master/plugins/medium/README.md>
-   [PlGa]: <https://github.com/RahulHP/dillinger/blob/master/plugins/googleanalytics/README.md>
+   [Beautiful Soup]: <https://beautiful-soup-4.readthedocs.io/en/latest/>
