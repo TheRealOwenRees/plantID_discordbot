@@ -1,6 +1,8 @@
 import os
-import requests
 import json
+import requests
+
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 import discord
@@ -17,6 +19,29 @@ class PlantnetID(Cog):
         self.prefix = '!'
         if 'BOT_PREFIX' in os.environ:
             self.prefix = os.environ['BOT_PREFIX']
+
+# PLANT ID HELP command listener
+    @command(aliases=['helpid'])
+    async def idhelp(self, ctx, *args):
+        await ctx.message.add_reaction(emoji='\N{THUMBS UP SIGN}')
+        embed = discord.Embed(title="Let's break this down a bit:", colour=discord.Colour(0x80eef9),
+                            description="Attach up to 5 photos to your message, and then use the following syntax: "
+                                        "```\n!id [args...]\n\neg. !id flower leaf leaf```\nAccepted arguments are "
+                                        "'flower', 'leaf', 'fruit', 'bark'.\n\n")
+        # embed.set_image(url="https://cdn.discordapp.com/embed/avatars/0.png")
+        # embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
+        embed.set_author(name="Plant ID Bot Help", url="https://discordapp.com",
+                        icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+        embed.set_footer(text="Powered by Pl@ntNet API", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
+        embed.add_field(name="For best results:",
+                        value="- all photos should be of the same plant\n- take photos of organs, not the whole plant\n- "
+                            "best results will be achieved by using a mixture of organs\n- use images at least "
+                            "600x600px\n- add an argument per attached photo, in order.\n- note: incorrect or omitted "
+                            "arguments will default to auto-detect.\n\n",
+                        inline=True)
+        embed.add_field(name=f"`{self.prefix}info`",
+                        value="for more commands")
+        await ctx.send(embed=embed)
 
     # PLANT ID command listener
     @command()
@@ -53,15 +78,16 @@ class PlantnetID(Cog):
                     common_names_str = "No common names were found."
 
                 # GBIF data - create url to GBIF if id is found
-                gbif_str = "<https://www.gbif.org/species/" + response[0]['GBIF'] + ">" if \
-                    response[0]['GBIF'] else ""
+                gbif_url = "https://www.gbif.org/species/" + response[0]['GBIF']
+                gbif_str = f"<{gbif_url}>\n\n" if response[0]['GBIF'] else ""
 
                 # PFAF URL - create url to PFAF if latin name is found
-                pfaf_str = "<https://pfaf.org/user/Plant.aspx?LatinName=" + response[0]['Scientific Name'].replace(" ", "+") + ">"
+                pfaf_url = "https://pfaf.org/user/Plant.aspx?LatinName=" + response[0]['Scientific Name'].replace(" ", "+") # removed < > to allow the URL to be used     
+                pfaf_str = f"<{pfaf_url}>\n\n" if self.pfaf_response(pfaf_url) else ""
 
                 await ctx.reply(
                     f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
-                    f"confidence. {common_names_str} For more information visit:\n{pfaf_str}\n\n{gbif_str}\n\n{alternatives_str}")
+                    f"confidence. {common_names_str} For more information visit:\n{pfaf_str}{gbif_str}{alternatives_str}")
             
             else:
                 await ctx.reply("Attach at least one photo to ID.")
@@ -69,31 +95,6 @@ class PlantnetID(Cog):
         except Exception as e:
             print(e)
             await ctx.send('There was a problem processing this image. Either the image format is incorrect or the API is currently down.')
-
-
-    # PLANT ID HELP command listener
-    @command(aliases=['helpid'])
-    async def idhelp(self, ctx, *args):
-        await ctx.message.add_reaction(emoji='\N{THUMBS UP SIGN}')
-        embed = discord.Embed(title="Let's break this down a bit:", colour=discord.Colour(0x80eef9),
-                            description="Attach up to 5 photos to your message, and then use the following syntax: "
-                                        "```\n!id [args...]\n\neg. !id flower leaf leaf```\nAccepted arguments are "
-                                        "'flower', 'leaf', 'fruit', 'bark'.\n\n")
-        # embed.set_image(url="https://cdn.discordapp.com/embed/avatars/0.png")
-        # embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
-        embed.set_author(name="Plant ID Bot Help", url="https://discordapp.com",
-                        icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-        embed.set_footer(text="Powered by Pl@ntNet API", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
-        embed.add_field(name="For best results:",
-                        value="- all photos should be of the same plant\n- take photos of organs, not the whole plant\n- "
-                            "best results will be achieved by using a mixture of organs\n- use images at least "
-                            "600x600px\n- add an argument per attached photo, in order.\n- note: incorrect or omitted "
-                            "arguments will default to auto-detect.\n\n",
-                        inline=True)
-        embed.add_field(name=f"`{self.prefix}info`",
-                        value="for more commands")
-        await ctx.send(embed=embed)
-
 
     @staticmethod
     def plantnet_response(images, *organs):
@@ -135,5 +136,12 @@ class PlantnetID(Cog):
             d['GBIF'] = result['gbif'].get('id') if result['gbif'] else ""
 
             results_list.append(d)
-
         return results_list
+
+    @staticmethod
+    def pfaf_response(url):
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+        r = requests.get(url, headers=headers)
+        soup = BeautifulSoup(r.content, 'html.parser')
+        latin_name = soup.find('span', id='ContentPlaceHolder1_lbldisplatinname')
+        return True if latin_name.text else False
