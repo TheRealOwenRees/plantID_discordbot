@@ -1,6 +1,7 @@
-aiohttp==3.7.4.post0
+aiohttp==3.8.1
+aiosignal==1.2.0
 appdirs==1.4.4
-async-timeout==3.0.1
+async-timeout==4.0.2
 attrs==21.4.0
 beautifulsoup4==4.11.1
 cattrs==1.10.0
@@ -9,6 +10,7 @@ chardet==4.0.0
 charset-normalizer==2.0.12
 colorama==0.4.4
 commonmark==0.9.1
+frozenlist==1.3.1
 idna==3.3
 importlib-metadata==4.11.2
 keyring==23.5.0

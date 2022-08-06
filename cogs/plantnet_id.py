@@ -142,6 +142,9 @@ class PlantnetID(Cog):
     def pfaf_response(url):
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
         r = requests.get(url, headers=headers)
-        soup = BeautifulSoup(r.content, 'html.parser')
-        latin_name = soup.find('span', id='ContentPlaceHolder1_lbldisplatinname')
-        return True if latin_name.text else False
+        if r.status_code == 200:      
+            soup = BeautifulSoup(r.content, 'html.parser')
+            latin_name = soup.find('span', id='ContentPlaceHolder1_lbldisplatinname')
+            return True if latin_name.text else False
+        else:
+            return False
