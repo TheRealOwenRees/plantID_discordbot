@@ -16,6 +16,7 @@ importlib-metadata==4.11.2
 keyring==23.5.0
 multidict==6.0.2
 orjson==3.6.7
+prettytable==3.3.0
 py-cord==2.0.0b4
 Pygments==2.11.2
 pyrate-limiter==2.6.0
@@ -31,5 +32,6 @@ soupsieve==2.3.2.post1
 typing_extensions==4.1.1
 url-normalize==1.4.3
 urllib3==1.26.8
+wcwidth==0.2.5
 yarl==1.7.2
 zipp==3.7.0
