@@ -118,13 +118,13 @@ class PfafSearch(Cog):
             table_title = soup.find('span', id='ContentPlaceHolder1_lbldisplatinname').text
             rows = soup.find('table', class_='table table-hover table-striped').find_all('tr')
 
-            message_str = f'**{table_title}**\n<{details_url}{args_str}>'
+            message_str = f'**{table_title}**\n<{details_url}{args_str}>\n'
 
             for row in rows[:10]:
                 content = row.find_all('td')
                 left_text = content[0].get_text().strip()
                 right_text = content[1].get_text().strip()
-                message_str += f'```{left_text}:\n\t{right_text}\n\n```'
+                message_str += f'```{left_text}:\n\t{right_text}\n\n```\n'
 
             # separate 'care info' due to needing to retrieve 'alt' data
             care_info_str = f'{rows[10].find("td").get_text().strip()}:\n'
@@ -154,9 +154,9 @@ class PfafSearch(Cog):
             cultivation = re.sub(rsub, '', f'```Cultivation Details:\n\t{rows[24].get_text() if len(rows[24].get_text()) <= 2000 else too_long_str}```')
             propagation = re.sub(rsub, '', f'```Propagation:\n\t{rows[27].get_text() if len(rows[27].get_text()) <= 2000 else too_long_str}```')
 
-            await ctx.reply(f'{summary}\n{phy_char}\n{synonyms}\n{habitats}')
-            await ctx.reply(f'{edible_uses}\n{medicinal_uses}')
-            await ctx.reply(f'{other_uses}\n{special_uses}')
+            await ctx.reply(f'{summary}\n\n{phy_char}\n\n{synonyms}\n\n{habitats}')
+            await ctx.reply(f'{edible_uses}\n\n{medicinal_uses}')
+            await ctx.reply(f'{other_uses}\n\n{special_uses}')
             await ctx.reply(f'{cultivation}')
             await ctx.reply(f'{propagation}')
 
