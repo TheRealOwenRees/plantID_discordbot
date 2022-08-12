@@ -154,9 +154,9 @@ class PfafSearch(Cog):
             cultivation = re.sub(rsub, '', f'```Cultivation Details:\n\t{rows[24].get_text() if len(rows[24].get_text()) <= 2000 else too_long_str}```')
             propagation = re.sub(rsub, '', f'```Propagation:\n\t{rows[27].get_text() if len(rows[27].get_text()) <= 2000 else too_long_str}```')
 
-            await ctx.reply(f'{summary}{phy_char}{synonyms}{habitats}')
-            await ctx.reply(f'{edible_uses}{medicinal_uses}')
-            await ctx.reply(f'{other_uses}{special_uses}')
+            await ctx.reply(f'{summary}\n{phy_char}\n{synonyms}\n{habitats}')
+            await ctx.reply(f'{edible_uses}\n{medicinal_uses}')
+            await ctx.reply(f'{other_uses}\n{special_uses}')
             await ctx.reply(f'{cultivation}')
             await ctx.reply(f'{propagation}')
 
