@@ -124,7 +124,7 @@ class PfafSearch(Cog):
                 content = row.find_all('td')
                 left_text = content[0].get_text().strip()
                 right_text = content[1].get_text().strip()
-                message_str += f'```{left_text}:\n\t{right_text}\n\n```\n'
+                message_str += f'```{left_text}:\n\t{right_text}\n\n```\n\n'
 
             # separate 'care info' due to needing to retrieve 'alt' data
             care_info_str = f'{rows[10].find("td").get_text().strip()}:\n'
