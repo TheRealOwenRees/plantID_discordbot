@@ -68,7 +68,7 @@ class PfafSearch(Cog):
             # th[6].get_text(),
             # th[7].get_text(),
             # th[8].get_text(),
-            th[9].get_text(),
+            # th[9].get_text(),
             # th[10].get_text(),
         ]
 
@@ -83,7 +83,7 @@ class PfafSearch(Cog):
             # soil = content[6].get_text()
             # shade = content[7].get_text()
             # moisture = content[8].get_text()
-            edible = content[9].get_text()
+            # edible = content[9].get_text()
             # medicinal = content[10].get_text()
 
             ascii_table.add_row([
@@ -96,7 +96,7 @@ class PfafSearch(Cog):
                 # soil,
                 # shade,
                 # moisture,
-                edible,
+                # edible,
                 # medicinal,
             ])
 
