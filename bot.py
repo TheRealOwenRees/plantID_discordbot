@@ -9,7 +9,6 @@ from discord.ext import commands
 
 from cogs.plantnet_id import PlantnetID
 from cogs.bot_info import BotInfo
-from cogs.pfaf import PfafSearch
 
 load_dotenv()   # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -30,7 +29,6 @@ bot = commands.Bot(
 )
 bot.add_cog(PlantnetID(bot))
 bot.add_cog(BotInfo(bot))
-bot.add_cog(PfafSearch(bot))
 
 # confirmation of bot startup
 @bot.event
