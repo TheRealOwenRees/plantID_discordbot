@@ -14,7 +14,7 @@ Plant ID Bot identifies plants from photos of their organs, passing to the [Plan
 
 Plant ID Bot uses a small number of prerequisites in order to work properly:
 
-- [Discord.py] - a modern discord bot framework built in python.
+- [Pycord] -  a modern, easy to use, feature-rich, and async ready API wrapper for Discord, written in Python
 - [Beautiful Soup] - a python library for pulling data out of HTML and XML files
 - [python-dotenv] - for reading local .env files during development
 
