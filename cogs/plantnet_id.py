@@ -3,12 +3,12 @@ import json
 import requests
 
 from bs4 import BeautifulSoup
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 import discord
 from discord.ext.commands import Cog, command, cooldown, BucketType
 
-# load_dotenv()   # load environment variables for test server
+load_dotenv()   # load environment variables for test server
 API_KEY = os.getenv('PLANTNET_API_KEY')
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
