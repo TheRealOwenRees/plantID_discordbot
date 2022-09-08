@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 import discord
-from discord.ext.commands import Cog, command
+from discord.ext.commands import Cog, command, cooldown, BucketType
 
 load_dotenv()   # load environment variables for test server
 API_KEY = os.getenv('PLANTNET_API_KEY')
@@ -20,7 +20,7 @@ class PlantnetID(Cog):
         if 'BOT_PREFIX' in os.environ:
             self.prefix = os.environ['BOT_PREFIX']
 
-# PLANT ID HELP command listener
+    # PLANT ID HELP command listener
     @command(aliases=['helpid'])
     async def idhelp(self, ctx, *args):
         await ctx.message.add_reaction(emoji='\N{THUMBS UP SIGN}')
@@ -45,6 +45,7 @@ class PlantnetID(Cog):
 
     # PLANT ID command listener
     @command()
+    @cooldown(20, 86400, BucketType.user)
     async def id(self, ctx, *args):
         try:
             if len(ctx.message.attachments) > 5:
