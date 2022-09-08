@@ -1,10 +1,9 @@
 import os
-import asyncio
 import logging
 
 from dotenv import load_dotenv
 
-import discord
+from discord import Game, Intents
 from discord.ext import commands
 
 from cogs.plantnet_id import PlantnetID
@@ -20,12 +19,16 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
+intents = Intents.default()
+intents.message_content = True
+
 prefix = os.environ.get('BOT_PREFIX', '!')
 bot = commands.Bot(
     command_prefix=prefix, 
-    case_insensitive=True, 
+    case_insensitive=True,
+    intents=intents,
     help_command=None,
-    activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
+    activity=Game(name=f'Guess the Plant | /help')
 )
 bot.add_cog(PlantnetID(bot))
 bot.add_cog(BotInfo(bot))
