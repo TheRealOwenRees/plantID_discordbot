@@ -10,7 +10,7 @@ from cogs.plantnet_id import PlantnetID
 from cogs.bot_info import BotInfo
 
 load_dotenv()   # load environment variables for test server
-DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
+DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('discord')
@@ -43,7 +43,7 @@ def convert_seconds(s):
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
-        await ctx.send(f'You have reached the maximum requests allowed in 24h.\n\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+        await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
 
 # confirmation of bot startup
 @bot.event
