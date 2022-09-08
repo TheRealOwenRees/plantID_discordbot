@@ -1,7 +1,7 @@
 import os
 import logging
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
 import discord
 from discord.ext import commands
@@ -9,8 +9,8 @@ from discord.ext import commands
 from cogs.plantnet_id import PlantnetID
 from cogs.bot_info import BotInfo
 
-load_dotenv()   # load environment variables for test server
-DISCORD_TOKEN = os.environ['DISCORD_TOKEN']
+# load_dotenv()   # load environment variables for test server
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 # logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger('discord')
