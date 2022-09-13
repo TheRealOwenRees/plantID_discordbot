@@ -80,6 +80,15 @@ class BotInfo(Cog):
     async def invite(self, ctx):
         await ctx.send('https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot')
 
-
-
-        
+    # list servers that the bot has been invited to
+    @command()
+    async def servers(self, ctx):
+        servers = list(self.bot.guilds)
+        embed = discord.Embed(
+            title=f'Connected on {str(len(servers))} servers:',
+            description='\n'.join(guild.name for guild in self.bot.guilds),
+            colour=0x1aaae5
+        )
+        await ctx.send(embed=embed)
+        # await ctx.send(f"Connected on {str(len(servers))} servers:")
+        # await ctx.send('\n'.join(guild.name for guild in self.bot.guilds))
