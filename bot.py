@@ -12,38 +12,41 @@ from cogs.bot_info import BotInfo
 load_dotenv()   # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-logging.basicConfig(level=logging.DEBUG)
-# logger = logging.getLogger('discord')
-# logger.setLevel(logging.CRITICAL)
-# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-# logger.addHandler(handler)
+# logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('discord')
+logger.setLevel(logging.CRITICAL)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
-intents = discord.Intents.default()
-intents.message_content = True
+# intents = discord.Intents.default()
+# intents.message_content = True
 
 prefix = os.environ.get('BOT_PREFIX', '!')
 bot = commands.Bot(
     command_prefix=prefix, 
     case_insensitive=True, 
-    intents=intents,
+    # intents=intents,
     help_command=None,
     activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
 )
 bot.add_cog(PlantnetID(bot))
 bot.add_cog(BotInfo(bot))
 
+
 # convert seconds into hours/minutes/seconds
 def convert_seconds(s):
-    min, sec = divmod(s, 60)
-    hour, min = divmod(min, 60)
-    return "%dh %0dm %0ds" % (hour, min, sec)
+    minute, sec = divmod(s, 60)
+    hour, minute = divmod(minute, 60)
+    return "%dh %0dm %0ds" % (hour, minute, sec)
+
 
 # cooldown message
 @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
         await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+
 
 # confirmation of bot startup
 @bot.event

@@ -73,12 +73,24 @@ class BotInfo(Cog):
     # Sends the link to the bot's GitHub repo
     @command()
     async def source(self, ctx):
-        await ctx.send('https://github.com/TheRealOwenRees/plantID_discordbot')
+        url = 'https://github.com/TheRealOwenRees/plantID_discordbot'
+        embed = discord.Embed(
+            title=f'View the repo and report issues at:',
+            description=f'{url}',
+            colour=0x1aaae5
+        )
+        await ctx.send(embed=embed)        
 
-    #Sends a bot invite link
+    # Sends a bot invite link
     @command()
     async def invite(self, ctx):
-        await ctx.send('https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot')
+        url = 'https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot'
+        embed = discord.Embed(
+            title=f'Invite the bot to your server:',
+            description=f'[Click here]({url})',
+            colour=0x1aaae5
+        )
+        await ctx.send(embed=embed)
 
     # list servers that the bot has been invited to
     @command()
@@ -90,5 +102,3 @@ class BotInfo(Cog):
             colour=0x1aaae5
         )
         await ctx.send(embed=embed)
-        # await ctx.send(f"Connected on {str(len(servers))} servers:")
-        # await ctx.send('\n'.join(guild.name for guild in self.bot.guilds))
