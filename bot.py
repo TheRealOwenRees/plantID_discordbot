@@ -33,7 +33,7 @@ bot = commands.Bot(
 bot.add_cog(PlantnetID(bot))
 bot.add_cog(BotInfo(bot))
 
-convert seconds into hours/minutes/seconds
+# convert seconds into hours/minutes/seconds
 def convert_seconds(s):
     min, sec = divmod(s, 60)
     hour, min = divmod(min, 60)
