@@ -34,16 +34,16 @@ bot.add_cog(PlantnetID(bot))
 bot.add_cog(BotInfo(bot))
 
 # convert seconds into hours/minutes/seconds
-def convert_seconds(s):
-    min, sec = divmod(s, 60)
-    hour, min = divmod(min, 60)
-    return "%dh %0dm %0ds" % (hour, min, sec)
+# def convert_seconds(s):
+#     min, sec = divmod(s, 60)
+#     hour, min = divmod(min, 60)
+#     return "%dh %0dm %0ds" % (hour, min, sec)
 
 # cooldown message
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandOnCooldown):
-        await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+# @bot.event
+# async def on_command_error(ctx, error):
+#     if isinstance(error, commands.CommandOnCooldown):
+#         await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
 
 # confirmation of bot startup
 @bot.event

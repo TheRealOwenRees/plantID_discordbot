@@ -45,7 +45,7 @@ class PlantnetID(Cog):
 
     # PLANT ID command listener
     @command()
-    @cooldown(20, 86400, BucketType.user)
+    # @cooldown(20, 86400, BucketType.user)
     async def id(self, ctx, *args):
         try:
             if len(ctx.message.attachments) > 5:
