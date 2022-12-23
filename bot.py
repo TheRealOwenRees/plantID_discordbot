@@ -20,14 +20,14 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 # COMMENT OUT INTENTS IN PRODUCTION IF MESSAGES DONT DELIVER
-intents = discord.Intents.default()
-intents.message_content = True
+# intents = discord.Intents.default()
+# intents.message_content = True
 
 prefix = os.environ.get('BOT_PREFIX', '!')
 bot = commands.Bot(
     command_prefix=prefix, 
     case_insensitive=True, 
-    intents=intents,            # COMMENT OUT IN PRODUCTION IF MESSAGES DONT DELIVER
+    # intents=intents,            # COMMENT OUT IN PRODUCTION IF MESSAGES DONT DELIVER
     help_command=None,
     activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
 )
