@@ -43,7 +43,7 @@ class PlantnetID(Cog):
 
     # PLANT ID command listener
     @command()
-    # @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
+    @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
     async def id(self, ctx):
         try:
             # prevent more than 5 photos from being processed (Plantnet max)

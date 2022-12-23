@@ -32,8 +32,6 @@ def plantnet_response(images, *organs):
     req = requests.get(api_endpoint, params=payload)
     if req.status_code == 200:
         json_data = json.loads(req.text)
-    # else:
-    #     return False
 
     # format output
     results_list = []
@@ -62,8 +60,6 @@ def pfaf_response(url):
         soup = BeautifulSoup(req.content, 'html.parser')
         latin_name = soup.find('span', id='ContentPlaceHolder1_lbldisplatinname')
         return True if latin_name.text else False
-    # else:
-    #     return False
 
 
 # accepts URLs of images and arguments for Plantnet, returning results as JSON

@@ -1,10 +1,11 @@
 import os
 import logging
-from dotenv import load_dotenv
-
+from dotenv import load_dotenv 
 import discord
 from discord.ext import commands
 
+from cogs.plantnet_id_slash import PlantnetIDSlash
+from cogs.bot_info_slash import BotInfoSlash
 from cogs.plantnet_id import PlantnetID
 from cogs.bot_info import BotInfo
 
@@ -30,6 +31,8 @@ bot = commands.Bot(
     help_command=None,
     activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
 )
+bot.add_cog(BotInfoSlash(bot))
+bot.add_cog(PlantnetIDSlash(bot))
 bot.add_cog(PlantnetID(bot))
 bot.add_cog(BotInfo(bot))
 
