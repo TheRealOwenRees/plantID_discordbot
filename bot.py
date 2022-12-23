@@ -1,6 +1,5 @@
 import os
 import logging
-
 from dotenv import load_dotenv
 
 import discord
@@ -19,14 +18,15 @@ handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w'
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-# intents = discord.Intents.default()
-# intents.message_content = True
+# COMMENT OUT INTENTS IN PRODUCTION IF MESSAGES DONT DELIVER
+intents = discord.Intents.default()
+intents.message_content = True
 
 prefix = os.environ.get('BOT_PREFIX', '!')
 bot = commands.Bot(
     command_prefix=prefix, 
     case_insensitive=True, 
-    # intents=intents,
+    intents=intents,            # COMMENT OUT IN PRODUCTION IF MESSAGES DONT DELIVER
     help_command=None,
     activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
 )
