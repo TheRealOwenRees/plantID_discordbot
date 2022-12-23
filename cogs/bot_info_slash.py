@@ -11,7 +11,7 @@ class BotInfoSlash(Cog):
         self.prefix = '/'
 
     # bot info
-    @slash_command(guild_ids=[], description="Displays info and more commands")
+    @slash_command(description="Displays info and more commands")
     async def info(self, ctx):
         """Sends a help message"""
         info = await self.bot.application_info()
@@ -43,7 +43,7 @@ class BotInfoSlash(Cog):
         await ctx.respond(embed=embed)
 
     # bot stats
-    @slash_command(guild_ids=[], description="Displays bot stats")
+    @slash_command(description="Displays bot stats")
     async def stats(self, ctx):
         info = await self.bot.application_info()
         embed = discord.Embed(
@@ -70,7 +70,7 @@ class BotInfoSlash(Cog):
         await ctx.respond(embed=embed)
 
     # Sends the link to the bot's GitHub repo
-    @slash_command(guild_ids=[], description="A link to the bot's source code repository")
+    @slash_command(description="A link to the bot's source code repository")
     async def source(self, ctx):
         url = 'https://github.com/TheRealOwenRees/plantID_discordbot'
         embed = discord.Embed(
@@ -81,7 +81,7 @@ class BotInfoSlash(Cog):
         await ctx.respond(embed=embed)
 
     # Sends a bot invite link
-    @slash_command(guild_ids=[], description="Display a bot invite link")
+    @slash_command(description="Display a bot invite link")
     async def invite(self, ctx):
         url = 'https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot'
         embed = discord.Embed(
@@ -92,7 +92,7 @@ class BotInfoSlash(Cog):
         await ctx.respond(embed=embed)
 
     # list servers that the bot has been invited to
-    @slash_command(guild_ids=[], description="All servers that this bot belongs to")
+    @slash_command(description="All servers that this bot belongs to")
     async def servers(self, ctx):
         servers = list(self.bot.guilds)
         embed = discord.Embed(

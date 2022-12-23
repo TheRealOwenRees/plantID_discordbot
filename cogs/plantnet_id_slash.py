@@ -16,7 +16,7 @@ class PlantnetIDSlash(Cog):
         self.prefix = '/'
 
     # help menu
-    @slash_command(guild_ids=[], description="Display the help menu")
+    @slash_command(description="Display the help menu")
     async def help(self, ctx):
         embed = discord.Embed(title="Let's break this down a bit:", colour=discord.Colour(0x80eef9),
                               description="Attach up to 5 photos to your message, or add one URL\n\n")
@@ -35,7 +35,7 @@ class PlantnetIDSlash(Cog):
         await ctx.respond(embed=embed)
 
     # ID from photos
-    @slash_command(guild_ids=[], description="ID a plant from up to 5 photos")
+    @slash_command(description="ID a plant from up to 5 photos")
     @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
     @discord.option("image1", discord.Attachment, description="a photo", required=True)
     @discord.option("image2", discord.Attachment, description="a photo", required=False)
