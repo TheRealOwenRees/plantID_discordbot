@@ -12,12 +12,12 @@ from cogs.bot_info import BotInfo
 load_dotenv()   # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-# logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger('discord')
-logger.setLevel(logging.CRITICAL)
-handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-logger.addHandler(handler)
+logging.basicConfig(level=logging.DEBUG)
+# logger = logging.getLogger('discord')
+# logger.setLevel(logging.CRITICAL)
+# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+# logger.addHandler(handler)
 
 # COMMENT OUT INTENTS IN PRODUCTION IF MESSAGES DONT DELIVER
 intents = discord.Intents.default()
@@ -45,10 +45,10 @@ def convert_seconds(s):
 
 
 # cooldown message
-@bot.event
-async def on_command_error(ctx, error):
-    if isinstance(error, commands.CommandOnCooldown):
-        await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+# @bot.event
+# async def on_command_error(ctx, error):
+#     if isinstance(error, commands.CommandOnCooldown):
+#         await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
 
 
 # confirmation of bot startup

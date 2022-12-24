@@ -22,9 +22,7 @@ class PlantnetID(Cog):
     async def idhelp(self, ctx):
         await ctx.message.add_reaction(emoji='\N{THUMBS UP SIGN}')
         embed = discord.Embed(title="Let's break this down a bit:", colour=discord.Colour(0x80eef9),
-                              description="Attach up to 5 photos to your message, and then use the following syntax: "
-                                          "```\n!id [args...]\n\neg. !id flower leaf leaf```\nAccepted arguments are "
-                                          "'flower', 'leaf', 'fruit', 'bark'.\n\n")
+                              description="Attach up to 5 photos to your message and type `!id` as the message\n\n")
         # embed.set_image(url="https://cdn.discordapp.com/embed/avatars/0.png")
         # embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_author(name="Plant ID Bot Help", url="https://discordapp.com",
@@ -33,8 +31,7 @@ class PlantnetID(Cog):
         embed.add_field(name="For best results:",
                         value="- all photos should be of the same plant\n- take photos of organs, not the whole plant\n- "
                               "best results will be achieved by using a mixture of organs\n- use images at least "
-                              "600x600px\n- add an argument per attached photo, in order.\n- note: incorrect or omitted "
-                              "arguments will default to auto-detect.\n\n",
+                              "600x600px\n- add an argument per attached photo, in order.\n\n",
                         inline=True)
         embed.add_field(name=f"`{self.prefix}info`",
                         value="for more commands")
