@@ -12,12 +12,12 @@ from cogs.bot_info import BotInfo
 load_dotenv()   # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
-logging.basicConfig(level=logging.DEBUG)
-# logger = logging.getLogger('discord')
-# logger.setLevel(logging.CRITICAL)
-# handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
-# handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
-# logger.addHandler(handler)
+# logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger('discord')
+logger.setLevel(logging.CRITICAL)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
 
 # COMMENT OUT INTENTS IN PRODUCTION IF MESSAGES DONT DELIVER
 intents = discord.Intents.default()
