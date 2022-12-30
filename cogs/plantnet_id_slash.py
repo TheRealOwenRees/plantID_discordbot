@@ -1,11 +1,8 @@
 import os
-from dotenv import load_dotenv
-
 import discord
 from discord.ext.commands import Cog, cooldown, BucketType, slash_command
-
+from dotenv import load_dotenv
 from processing import process_attachments
-
 
 load_dotenv()  # load environment variables for test server
 API_KEY = os.getenv('PLANTNET_API_KEY')
@@ -37,34 +34,35 @@ class PlantnetIDSlash(Cog):
         await ctx.respond(embed=embed)
 
     # ID from photos
-    # @slash_command(guild_ids=[1002507312159797318], description="ID a plant from up to 5 photos")
-    # @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
-    # @discord.option("image1", discord.Attachment, description="a photo", required=True)
-    # @discord.option("image2", discord.Attachment, description="a photo", required=False)
-    # @discord.option("image3", discord.Attachment, description="a photo", required=False)
-    # @discord.option("image4", discord.Attachment, description="a photo", required=False)
-    # @discord.option("image5", discord.Attachment, description="a photo", required=False)
-    # async def id(
-    #     self,
-    #     ctx: discord.ApplicationContext,
-    #     image1: discord.Attachment,
-    #     image2: discord.Attachment,
-    #     image3: discord.Attachment,
-    #     image4: discord.Attachment,
-    #     image5: discord.Attachment,
-    # ): 
-    #     try:
-    #         attachments = [image1, image2, image3, image4, image5]
-    #         image_paths = []
-    #         for attachment in attachments:
-    #             if attachment is not None:
-    #                 image_paths.append(attachment.url)
-    #         result = process_attachments(image_paths)
-    #         await ctx.respond(image_paths)
-    #         await ctx.respond('dsd')
+    @slash_command(guild_ids=[], description="ID a plant from up to 5 photos")
+    @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
+    @discord.option("image1", discord.Attachment, description="a photo", required=True)
+    @discord.option("image2", discord.Attachment, description="a photo", required=False)
+    @discord.option("image3", discord.Attachment, description="a photo", required=False)
+    @discord.option("image4", discord.Attachment, description="a photo", required=False)
+    @discord.option("image5", discord.Attachment, description="a photo", required=False)
+    async def id(
+        self,
+        ctx: discord.ApplicationContext,
+        image1: discord.Attachment,
+        image2: discord.Attachment,
+        image3: discord.Attachment,
+        image4: discord.Attachment,
+        image5: discord.Attachment,
+    ): 
+        try:
+            await ctx.defer()
+            attachments = [image1, image2, image3, image4, image5]
+            image_paths = []
+            for attachment in attachments:
+                if attachment is not None:
+                    image_paths.append(attachment.url)
+            result = process_attachments(image_paths)
+            await ctx.respond(image_paths[0])
+            await ctx.followup.send(result)
 
-    #     except Exception as e:
-    #         print(e)
-    #         await ctx.respond(
-    #             'There was a problem processing this image. Either the image format is incorrect or the API is currently down.')
+        except Exception as e:
+            print(e)
+            await ctx.respond(
+                'There was a problem processing this image. Either the image format is incorrect or the API is currently down.')
 
