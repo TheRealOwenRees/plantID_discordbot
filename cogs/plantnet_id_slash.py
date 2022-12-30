@@ -34,7 +34,7 @@ class PlantnetIDSlash(Cog):
         await ctx.respond(embed=embed)
 
     # ID from photos
-    @slash_command(guild_ids=[], description="ID a plant from up to 5 photos")
+    @slash_command(description="ID a plant from up to 5 photos")
     @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
     @discord.option("image1", discord.Attachment, description="a photo", required=True)
     @discord.option("image2", discord.Attachment, description="a photo", required=False)
