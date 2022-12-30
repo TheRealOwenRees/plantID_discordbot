@@ -29,7 +29,7 @@ bot = commands.Bot(
     case_insensitive=True, 
     intents=intents,            # COMMENT OUT IN PRODUCTION IF MESSAGES DONT DELIVER
     help_command=None,
-    activity=discord.Game(name=f'Guess the Plant | {prefix}idhelp')
+    activity=discord.Game(name=f'Guess the Plant | /help')
 )
 bot.add_cog(BotInfoSlash(bot))
 bot.add_cog(PlantnetIDSlash(bot))

@@ -18,7 +18,7 @@ class PlantnetIDSlash(Cog):
     @slash_command(description="Display the help menu")
     async def help(self, ctx):
         embed = discord.Embed(title="Let's break this down a bit:", colour=discord.Colour(0x80eef9),
-                              description="Attach up to 5 photos to your message and type `!id` as the message\n\n")
+                              description="Use the `/id` command and add up to 5 photos\n\n")
         # embed.set_image(url="https://cdn.discordapp.com/embed/avatars/0.png")
         # embed.set_thumbnail(url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_author(name="Plant ID Bot Help", url="https://discordapp.com",
