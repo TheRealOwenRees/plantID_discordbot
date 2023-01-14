@@ -27,10 +27,10 @@ If you fork this repository and wish to host your own version of this bot, you w
 
 - Create a new account at [Plantnet API]
 - Create a new application and bot at the [Discord Developer Portal](https://discord.com/developers/applications). Follow this [guide](https://realpython.com/how-to-make-a-discord-bot-python/) if you are unsure.
-- create a local .env file to store 'DISCORD_TOKEN' and 'PLANTNET_API_KEY'. Add both your bot's secret token and PlantNet API key here repectively
+- create a local .env file to store `DISCORD_TOKEN` and `PLANTNET_API_KEY`. Add both your bot's secret token and PlantNet API key here repectively
 - Enable the bot permissions 'Read Messages/View Channels', 'Send Messages', 'Embed Links', 'Add Reactions'
 - Host the files on your platform of choice. A procfile is included if you wish to use [Heroku](https://www.heroku.com)
-- Add the bot's secret token and your PlantNet API key to your platform's environment variables under the keys 'DISCORD_TOKEN' and 'PLANTNET_API_KEY'. 
+- Add the bot's secret token and your PlantNet API key to your platform's environment variables under the keys `DISCORD_TOKEN` and `PLANTNET_API_KEY`. 
 
 ## Development
 
@@ -38,7 +38,7 @@ Want to contribute? Simply fork, clone, edit and then create a pull request. Det
 
 ## Credits
 - [themanifold](https://github.com/themanifold) who cast his careful eye over the code, making sure that I wasn't making any obvious errors, and for making my todo list longer each day
-- [Country Roles](https://github.com/dolphingarlic/country-roles) from which my knowledge of [Discord.py] 'cogs' was solidified. Their implementation of 'BotInfo' was used to create more information on the bot, and generally helped me clean up my code 
+- [Country Roles](https://github.com/dolphingarlic/country-roles) from which my knowledge of Discord.py 'cogs' was solidified. Their implementation of 'BotInfo' was used to create more information on the bot, and generally helped me clean up my code 
 
 ## License
 
