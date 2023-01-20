@@ -1,6 +1,6 @@
 from datetime import datetime
 
-import discord
+from discord import Embed
 from discord.ext.commands import Cog, slash_command
 
 
@@ -15,7 +15,7 @@ class BotInfoSlash(Cog):
     async def info(self, ctx):
         """Sends a help message"""
         info = await self.bot.application_info()
-        embed = discord.Embed(
+        embed = Embed(
             title='Plant ID Bot Info',
             description=f'{info.description}',
             colour=0x41c03f
@@ -24,8 +24,8 @@ class BotInfoSlash(Cog):
             value='Shows this message',
             inline=True
         ).add_field(
-            name=f'`{self.prefix}idhelp`',
-            value='Gives more detailed help on the plant ID bot',
+            name=f'`{self.prefix}help`',
+            value='Gives detailed help on the plant ID bot',
             inline=True 
         ).add_field(
             name=f'`{self.prefix}stats`',
@@ -46,7 +46,7 @@ class BotInfoSlash(Cog):
     @slash_command(description="Displays bot stats")
     async def stats(self, ctx):
         info = await self.bot.application_info()
-        embed = discord.Embed(
+        embed = Embed(
             title=f'{info.name}',
             description="Stats etc.",
             colour=0x1aaae5,
@@ -73,30 +73,21 @@ class BotInfoSlash(Cog):
     @slash_command(description="A link to the bot's source code repository")
     async def source(self, ctx):
         url = 'https://github.com/TheRealOwenRees/plantID_discordbot'
-        embed = discord.Embed(
-            title=f'View the repo and report issues at:',
-            description=f'{url}',
-            colour=0x1aaae5
-        )
-        await ctx.respond(embed=embed)
+        await ctx.respond(f'View source code and report issues at:\n\n{url}')
 
     # Sends a bot invite link
     @slash_command(description="Display a bot invite link")
     async def invite(self, ctx):
         url = 'https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot'
-        embed = discord.Embed(
-            title=f'Invite the bot to your server:',
-            description=f'[Click here]({url})',
-            colour=0x1aaae5
-        )
-        await ctx.respond(embed=embed)
+        await ctx.respond(f'Invite the bot to your server:\n\n[Click here]({url})')
 
     # list servers that the bot has been invited to
     @slash_command(description="All servers that this bot belongs to")
     async def servers(self, ctx):
         servers = list(self.bot.guilds)
-        embed = discord.Embed(
-            title=f'Connected on {str(len(servers))} servers:',
+        serverWording = 'servers' if len(servers) > 1 else 'server'
+        embed = Embed(
+            title=f'Connected on {len(servers)} {serverWording}:',
             description='\n'.join(guild.name for guild in self.bot.guilds),
             colour=0x1aaae5
         )

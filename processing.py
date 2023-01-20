@@ -59,7 +59,8 @@ def pfaf_response(url):
     if req.status_code == 200:
         soup = BeautifulSoup(req.content, 'html.parser')
         latin_name = soup.find('span', id='ContentPlaceHolder1_lbldisplatinname')
-        return True if latin_name.text else False
+        if latin_name.text:
+            return True
 
 
 # accepts URLs of images and arguments for Plantnet, returning results as JSON
