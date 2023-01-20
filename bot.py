@@ -6,8 +6,8 @@ from discord.ext import commands
 
 from cogs.plantnet_id_slash import PlantnetIDSlash
 from cogs.bot_info_slash import BotInfoSlash
-from cogs.plantnet_id import PlantnetID
-from cogs.bot_info import BotInfo
+# from cogs.plantnet_id import PlantnetID
+# from cogs.bot_info import BotInfo
 
 load_dotenv()   # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -33,8 +33,8 @@ bot = commands.Bot(
 )
 bot.add_cog(BotInfoSlash(bot))
 bot.add_cog(PlantnetIDSlash(bot))
-bot.add_cog(PlantnetID(bot))
-bot.add_cog(BotInfo(bot))
+# bot.add_cog(PlantnetID(bot))
+# bot.add_cog(BotInfo(bot))
 
 
 # convert seconds into hours/minutes/seconds
@@ -46,9 +46,11 @@ def convert_seconds(s):
 
 # cooldown message
 @bot.event
-async def on_command_error(ctx, error):
+async def on_application_command_error(ctx, error):
     if isinstance(error, commands.CommandOnCooldown):
-        await ctx.send(f'You have reached the maximum requests allowed in 24h.\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+        await ctx.respond(f'You have reached the maximum requests allowed in 24h.\n\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+    else:
+        raise error
 
 
 # confirmation of bot startup
