@@ -25,11 +25,11 @@ To add the Plant ID bot from this repository to your discord server, use this [i
 
 If you fork this repository and wish to host your own version of this bot, you will need to:
 
-- Create a new account at [Plantnet API]
+- Create a new account at [Plantnet API].
 - Create a new application and bot at the [Discord Developer Portal](https://discord.com/developers/applications). Follow this [guide](https://realpython.com/how-to-make-a-discord-bot-python/) if you are unsure.
-- create a local .env file to store `DISCORD_TOKEN` and `PLANTNET_API_KEY`. Add both your bot's secret token and PlantNet API key here repectively
+- Create a local .env file to store `DISCORD_TOKEN` and `PLANTNET_API_KEY`. Add both your bot's secret token and PlantNet API key here repectively.
 - Enable the bot permissions 'Read Messages/View Channels', 'Send Messages', 'Embed Links', 'Add Reactions'
-- Host the files on your platform of choice. A procfile is included if you wish to use [Heroku](https://www.heroku.com)
+- Host the files on your platform of choice.
 - Add the bot's secret token and your PlantNet API key to your platform's environment variables under the keys `DISCORD_TOKEN` and `PLANTNET_API_KEY`. 
 
 ## Development
