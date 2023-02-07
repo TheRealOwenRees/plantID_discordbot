@@ -34,7 +34,7 @@ If you fork this repository and wish to host your own version of this bot, you w
 
 ## Development
 
-Want to contribute? Simply fork, clone, edit and then create a pull request. Details of how to do this can be found [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github).
+Want to contribute? Simply clone/fork, edit and then create a pull request. Details of how to do this can be found [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github).
 
 ## Credits
 - [themanifold](https://github.com/themanifold) who cast his careful eye over the code, making sure that I wasn't making any obvious errors, and for making my todo list longer each day
