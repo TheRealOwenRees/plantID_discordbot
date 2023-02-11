@@ -3,6 +3,8 @@
 
 Plant ID Bot identifies plants from photos of their organs, passing to the [Plantnet API] for identification. This bot was written for [Sustainable Living Hub](https://discord.com/invite/gQU5yWg)
 
+Invite this bot to your server with [this link.](https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot)
+
 ## Features
 
 - Takes the message picture attachments and attempts to identify them
