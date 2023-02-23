@@ -53,11 +53,11 @@ class BotInfo(Cog):
             colour=0x1aaae5,
         ).add_field(
             name='Server Count',
-            value=len(self.bot.guilds),
+            value=str(len(self.bot.guilds)),
             inline=True
         ).add_field(
             name='User Count',
-            value=len(self.bot.users),
+            value=str(len(self.bot.users)),
             inline=True
         ).add_field(
             name='Uptime',

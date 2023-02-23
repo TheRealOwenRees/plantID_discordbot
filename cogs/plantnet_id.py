@@ -29,7 +29,8 @@ class PlantnetID(Cog):
                          icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.set_footer(text="Powered by Pl@ntNet API", icon_url="https://cdn.discordapp.com/embed/avatars/0.png")
         embed.add_field(name="For best results:",
-                        value="- all photos should be of the same plant\n- take photos of organs, not the whole plant\n- "
+                        value="- all photos should be of the same plant\n- take photos of organs, not the whole "
+                              "plant\n-"
                               "best results will be achieved by using a mixture of organs\n- use images at least "
                               "600x600px\n- add an argument per attached photo, in order.\n\n",
                         inline=True)
@@ -37,10 +38,9 @@ class PlantnetID(Cog):
                         value="for more commands")
         await ctx.send(embed=embed)
 
-
     # PLANT ID command listener
     @command()
-    @cooldown(20, 86400, BucketType.user)     # ENABLE IN PRODUCTION
+    @cooldown(20, 86400, BucketType.user)  # ENABLE IN PRODUCTION
     async def id(self, ctx):
         try:
             # prevent more than 5 photos from being processed (Plantnet max)
@@ -54,7 +54,7 @@ class PlantnetID(Cog):
                 await ctx.reply(process_attachments(image_paths))
             # process url instead of image
             elif len(ctx.message.attachments) == 0 and len(ctx.message.content) > 3:
-                image_paths = []    # made into an array for when i expand this to accept multiple urls
+                image_paths = []  # made into an array for when i expand this to accept multiple urls
                 url_text = ctx.message.content[4:]  # only accepts 1 url for now
                 image_paths.append(url_text)
                 await ctx.reply(process_attachments(image_paths))
@@ -65,5 +65,5 @@ class PlantnetID(Cog):
         except Exception as e:
             print(e)
             await ctx.send(
-                'There was a problem processing this image. Either the image format is incorrect or the API is currently down.')
-           
+                'There was a problem processing this image. Either the image format is incorrect or the API is '
+                'currently down.')

@@ -37,16 +37,11 @@ def plantnet_response(images, *organs):
     results_list = []
 
     for result in json_data['results']:
-        d = {
-            "Score": result['score'],
-            "Scientific Name": result['species']['scientificNameWithoutAuthor'],
-            "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
-            "Family": result['species']['family']['scientificNameWithoutAuthor'],
-            "Common Names": result['species']['commonNames'],
-            # "GBIF": result['gbif'].get('id')
-        }
-        d['GBIF'] = result['gbif'].get('id') if result['gbif'] else ""
-
+        d = {"Score": result['score'], "Scientific Name": result['species']['scientificNameWithoutAuthor'],
+             "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
+             "Family": result['species']['family']['scientificNameWithoutAuthor'],
+             "Common Names": result['species']['commonNames'],
+             'GBIF': result['gbif'].get('id') if result['gbif'] else ""}
         results_list.append(d)
     return results_list
 
@@ -54,7 +49,8 @@ def plantnet_response(images, *organs):
 # SCRAPE PLANT DATA FROM PFAF.ORG WEBSITE
 def pfaf_response(url):
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/50.0.2661.102 Safari/537.36'}
     req = requests.get(url, headers=headers)
     if req.status_code == 200:
         soup = BeautifulSoup(req.content, 'html.parser')
@@ -67,7 +63,7 @@ def pfaf_response(url):
 def process_attachments(attachments):
     response = plantnet_response(attachments)
 
-     # message results
+    # message results
     alternatives_list = []  # a list for all the alternative plant IDs
 
     for result in response[1:]:
@@ -98,6 +94,6 @@ def process_attachments(attachments):
     pfaf_str = f"<{pfaf_url}>\n\n" if pfaf_response(pfaf_url) else ""
 
     result_str = (f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
-                    f"confidence. {common_names_str} For more information visit:\n{pfaf_str}{gbif_str}{alternatives_str}")
+                  f"confidence. {common_names_str} For more information visit:\n{pfaf_str}{gbif_str}{alternatives_str}")
 
     return result_str
