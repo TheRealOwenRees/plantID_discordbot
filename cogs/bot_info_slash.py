@@ -52,11 +52,11 @@ class BotInfoSlash(Cog):
             colour=0x1aaae5,
         ).add_field(
             name='Server Count',
-            value=len(self.bot.guilds),
+            value=str(len(self.bot.guilds)),
             inline=True
         ).add_field(
             name='User Count',
-            value=len(self.bot.users),
+            value=str(len(self.bot.users)),
             inline=True
         ).add_field(
             name='Uptime',
@@ -85,9 +85,9 @@ class BotInfoSlash(Cog):
     @slash_command(description="All servers that this bot belongs to")
     async def servers(self, ctx):
         servers = list(self.bot.guilds)
-        serverWording = 'servers' if len(servers) > 1 else 'server'
+        server_wording = 'servers' if len(servers) > 1 else 'server'
         embed = Embed(
-            title=f'Connected on {len(servers)} {serverWording}:',
+            title=f'Connected on {len(servers)} {server_wording}:',
             description='\n'.join(guild.name for guild in self.bot.guilds),
             colour=0x1aaae5
         )
