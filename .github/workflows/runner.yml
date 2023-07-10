@@ -2,7 +2,7 @@ name: Docker Runner
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   run:
