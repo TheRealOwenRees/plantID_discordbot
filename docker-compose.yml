@@ -3,5 +3,7 @@ services:
   main:
       build: .
       container_name: plantidbot
+      restart: unless-stopped
       environment:
         - DISCORD_TOKEN
+        - PLANTNET_API_KEY
