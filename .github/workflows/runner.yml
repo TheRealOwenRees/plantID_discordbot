@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Run Container
-        run: docker-compose up -d --build
+        run: docker compose up -d --build
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           PLANTNET_API_KEY: ${{ secrets.PLANTNET_API_KEY }}
