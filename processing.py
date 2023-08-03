@@ -9,6 +9,9 @@ load_dotenv()  # load environment variables for test server
 API_KEY = os.getenv('PLANTNET_API_KEY')
 api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
 
+SCORE_LOWER_THRESHOLD = 30  # minimum score for a result to be considered valid
+ALTERNATIVE_SCORE_LOWER_THRESHOLD = 10  # minimum score for an alternative result to be considered valid
+
 
 # SEND IMAGES (Discord CACHED URLS) to PLANTNET API FOR PROCESSING
 # I have removed the 'organ' argument from being passed, but kept this functionality in case I wish to bring it back
@@ -63,12 +66,16 @@ def pfaf_response(url):
 def process_attachments(attachments):
     response = plantnet_response(attachments)
 
-    # message results
     alternatives_list = []  # a list for all the alternative plant IDs
+
+    plant_score = format(response[0]['Score'] * 100, ".0f")
+    if int(plant_score) < SCORE_LOWER_THRESHOLD:
+        return "I'm not sure what this is. Please try again with:\n- a clearer image\n- photos of multiple organs\n- " \
+               "pictures higher than 600x600px"
 
     for result in response[1:]:
         score = format(result['Score'] * 100, ".0f")
-        if int(score) >= 10:  # only add alternatives if the confidence score is > 10%
+        if int(score) >= ALTERNATIVE_SCORE_LOWER_THRESHOLD:
             alternatives_list.append(result['Scientific Name'] + " (" + score + "%)")
 
     # alternatives - join list as string if true
