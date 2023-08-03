@@ -25,8 +25,8 @@ class PlantnetIDSlash(Cog):
                                                                   "/ancillary-images/green-flower.jpg")
         embed.add_field(name="For best results:",
                         value="- all photos should be of the same plant\n- take photos of organs, not the whole "
-                              "plant\n-"
-                              "best results will be achieved by using a mixture of organs\n- use images at least "
+                              "plant\n"
+                              "- best results will be achieved by using a mixture of organs\n- use images at least "
                               "600x600px\n\n",
                         inline=True)
         embed.add_field(name=f"`{self.prefix}info`",
