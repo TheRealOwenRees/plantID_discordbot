@@ -4,8 +4,8 @@ from dotenv import load_dotenv
 from discord import Game
 from discord.ext.commands import Bot, CommandOnCooldown
 
-from cogs.plantnet_id_slash import PlantnetIDSlash
-from cogs.bot_info_slash import BotInfoSlash
+from cogs.plantnet_id import PlantnetID
+from cogs.bot_info import BotInfo
 
 load_dotenv()  # load environment variables for test server
 DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
@@ -22,8 +22,8 @@ bot = Bot(
     help_command=None,
     activity=Game(name=f'Guess the Plant | /help')
 )
-bot.add_cog(BotInfoSlash(bot))
-bot.add_cog(PlantnetIDSlash(bot))
+bot.add_cog(BotInfo(bot))
+bot.add_cog(PlantnetID(bot))
 
 
 # convert seconds into hours/minutes/seconds
