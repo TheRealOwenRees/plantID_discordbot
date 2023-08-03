@@ -2,7 +2,7 @@ import os
 from discord import ApplicationContext, Embed, Colour, Attachment, option
 from discord.ext.commands import Cog, BucketType, slash_command, cooldown
 from dotenv import load_dotenv
-from processing import process_attachments
+from processing import process_response
 
 load_dotenv()  # load environment variables for test server
 API_KEY = os.getenv('PLANTNET_API_KEY')
@@ -54,7 +54,7 @@ class PlantnetID(Cog):
             for attachment in attachments:
                 if attachment is not None:
                     image_paths.append(attachment.url)
-            result = process_attachments(image_paths)
+            result = process_response(image_paths)
             await ctx.respond(image_paths[0])
             await ctx.respond(result)  # change to ctx.followup.send?
 
