@@ -7,7 +7,7 @@ from settings import base_url, headers, SCORE_LOWER_THRESHOLD, ALTERNATIVE_SCORE
 
 def plantnet_response(images):
     """
-    Send images (Discord CACHED URLS) to PLANTNET API FOR PROCESSING
+    Send images (Discord cached URLs) to PLANTNET API FOR PROCESSING
     :param images: {'images': [], 'organs': []}
     :return: results_list: list of dicts
     """
@@ -23,16 +23,18 @@ def plantnet_response(images):
         json_data = json.loads(req.text)
 
     for result in json_data['results']:
-        d = {"Score": result['score'], "Scientific Name": result['species']['scientificNameWithoutAuthor'],
-             "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
-             "Family": result['species']['family']['scientificNameWithoutAuthor'],
-             "Common Names": result['species']['commonNames'],
-             'GBIF': result['gbif'].get('id') if result['gbif'] else ""}
-        results_list.append(d)
+        results_list.append(
+            {
+                "Score": result['score'], "Scientific Name": result['species']['scientificNameWithoutAuthor'],
+                "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
+                "Family": result['species']['family']['scientificNameWithoutAuthor'],
+                "Common Names": result['species']['commonNames'],
+                "GBIF": result['gbif'].get('id') if result['gbif'] else ""
+            })
     return results_list
 
 
-def pfaf_response(url):
+def pfaf_plant_exists(url):
     """
     Returns a boolean indicating if the latin name is found on the PFAF website
     :param url: https://pfaf.org/user/Plant.aspx?LatinName= + Scientific+Name
@@ -46,8 +48,7 @@ def pfaf_response(url):
             return True
 
 
-# accepts URLs of images and arguments for Plantnet, returning results as JSON
-def process_attachments(attachments):
+def process_response(attachments):
     """
     Process the response from PlantNet API, returning a string to be sent to the user depending on the score
     :param attachments: image attachments from ApplicationContext
@@ -83,7 +84,7 @@ def process_attachments(attachments):
     gbif_str = f"<{gbif_url}>\n\n" if response[0]['GBIF'] else ""
 
     pfaf_url = "https://pfaf.org/user/Plant.aspx?LatinName=" + response[0]['Scientific Name'].replace(" ", "+")
-    pfaf_str = f"<{pfaf_url}>\n\n" if pfaf_response(pfaf_url) else ""
+    pfaf_str = f"<{pfaf_url}>\n\n" if pfaf_plant_exists(pfaf_url) else ""
 
     result_str = (f"My best guess is ***{response[0]['Scientific Name']}*** with {response[0]['Score'] * 100:.0f}% "
                   f"confidence. {common_names_str} For more information visit:\n{pfaf_str}{gbif_str}{alternatives_str}")
