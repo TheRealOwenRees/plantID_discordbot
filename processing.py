@@ -7,7 +7,7 @@ from settings import base_url, headers, SCORE_LOWER_THRESHOLD, ALTERNATIVE_SCORE
 
 def plantnet_response(images):
     """
-    Send images (Discord cached URLs) to PLANTNET API FOR PROCESSING
+    Send images (Discord cached URLs) to PlantNet API for processing
     :param images: {'images': [], 'organs': []}
     :return: results_list: list of dicts
     """
@@ -22,15 +22,15 @@ def plantnet_response(images):
     if req.status_code == 200:
         json_data = json.loads(req.text)
 
-    for result in json_data['results']:
-        results_list.append(
-            {
-                "Score": result['score'], "Scientific Name": result['species']['scientificNameWithoutAuthor'],
-                "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
-                "Family": result['species']['family']['scientificNameWithoutAuthor'],
-                "Common Names": result['species']['commonNames'],
-                "GBIF": result['gbif'].get('id') if result['gbif'] else ""
-            })
+        for result in json_data['results']:
+            results_list.append(
+                {
+                    "Score": result['score'], "Scientific Name": result['species']['scientificNameWithoutAuthor'],
+                    "Genus": result['species']['genus']['scientificNameWithoutAuthor'],
+                    "Family": result['species']['family']['scientificNameWithoutAuthor'],
+                    "Common Names": result['species']['commonNames'],
+                    "GBIF": result['gbif'].get('id') if result['gbif'] else ""
+                })
     return results_list
 
 
@@ -48,6 +48,29 @@ def pfaf_plant_exists(url):
             return True
 
 
+def get_common_names_str(response):
+    if response[0]['Common Names']:
+        return "Common names include " + "**" + ", ".join(str(elem) for elem in response[0]['Common Names']) + "**."
+    else:
+        return "No common names were found."
+
+
+def get_alternatives_list(response):
+    alternatives_list = []
+    for result in response[1:]:
+        score = format(result['Score'] * 100, ".0f")
+        if int(score) >= ALTERNATIVE_SCORE_LOWER_THRESHOLD:
+            alternatives_list.append(result['Scientific Name'] + " (" + score + "%)")
+    return alternatives_list
+
+
+def get_alternatives_str(alternatives_list):
+    if alternatives_list:
+        return "Alternatives include: " + "*" + ", ".join(str(elem) for elem in alternatives_list) + "*."
+    else:
+        return "No alternatives were found."
+
+
 def process_response(attachments):
     """
     Process the response from PlantNet API, returning a string to be sent to the user depending on the score
@@ -56,29 +79,14 @@ def process_response(attachments):
     """
     response = plantnet_response(attachments)
 
-    alternatives_list = []
-
     plant_score = format(response[0]['Score'] * 100, ".0f")
     if int(plant_score) < SCORE_LOWER_THRESHOLD:
         return "I'm not sure what this is. Please try again with:\n- a clearer image\n- photos of multiple organs\n- " \
                "pictures higher than 600x600px"
 
-    for result in response[1:]:
-        score = format(result['Score'] * 100, ".0f")
-        if int(score) >= ALTERNATIVE_SCORE_LOWER_THRESHOLD:
-            alternatives_list.append(result['Scientific Name'] + " (" + score + "%)")
-
-    if alternatives_list:
-        alternatives_str = "Alternatives include: " + "*" + ", ".join(
-            str(elem) for elem in alternatives_list) + "*."
-    else:
-        alternatives_str = "No alternatives were found."
-
-    if response[0]['Common Names']:
-        common_names_str = "Common names include " + "**" + ", ".join(
-            str(elem) for elem in response[0]['Common Names']) + "**."
-    else:
-        common_names_str = "No common names were found."
+    alternatives_list = get_alternatives_list(response)
+    alternatives_str = get_alternatives_str(alternatives_list)
+    common_names_str = get_common_names_str(response)
 
     gbif_url = "https://www.gbif.org/species/" + response[0]['GBIF']
     gbif_str = f"<{gbif_url}>\n\n" if response[0]['GBIF'] else ""
