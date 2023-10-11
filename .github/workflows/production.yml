@@ -8,6 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-22.04
 
+    env:
+      DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+      PLANTNET_API_KEY: ${{ secrets.PLANTNET_API_KEY }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,7 +26,6 @@ jobs:
           script: |
             cd /home/${{ secrets.USERNAME }}/ffe-scraper
             ls -la
-#              git pull
-#              docker compose down
-#              docker compose up --build -d
-
+            git pull
+            docker compose down
+            docker compose up --build -d
