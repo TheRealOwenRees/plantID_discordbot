@@ -12,10 +12,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-        env:
-          DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
-          PLANTNET_API_KEY: ${{ secrets.PLANTNET_API_KEY }}
-
       - name: SSH into Server and run Docker
         uses: appleboy/ssh-action@master
         with:
@@ -25,7 +21,6 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd /home/${{ secrets.USERNAME }}/plantID_discordbot
-            ls -la
             git pull
             docker compose down
             docker compose up --build -d
