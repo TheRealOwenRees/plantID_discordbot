@@ -1,6 +1,7 @@
-version: "2.18"
+version: "2.21"
 services:
   main:
+      image: plantidbot
       build: .
       container_name: plantidbot
       restart: unless-stopped
