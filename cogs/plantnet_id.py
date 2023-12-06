@@ -1,5 +1,5 @@
 import os
-from discord import ApplicationContext, Embed, Colour, Attachment, option
+from discord import ApplicationContext, Embed, Colour, Attachment, option, File
 from discord.ext.commands import Cog, BucketType, slash_command, cooldown
 from dotenv import load_dotenv
 from processing import process_response
@@ -50,15 +50,14 @@ class PlantnetID(Cog):
         try:
             await ctx.defer()
             attachments = [image1, image2, image3, image4, image5]
-            image_paths = []
-            for attachment in attachments:
-                if attachment is not None:
-                    image_paths.append(attachment.url)
-            result = process_response(image_paths)
-            await ctx.respond(image_paths[0])
-            await ctx.respond(result)  # change to ctx.followup.send?
+            image_paths = [attachments.url for attachments in attachments if attachments is not None]
+            images_message = "\n".join([f"[Original Image]({url})" for url in image_paths if url is not None])
+            id_result = process_response(image_paths)
+            combined_message = id_result + "\n\n" + images_message
+            await ctx.respond(combined_message)  # change to ctx.followup.send?
 
-        except Exception:
+        except Exception as e:
+            print(e)
             await ctx.respond(
                 'There was a problem processing this image. Either the image format is incorrect or the API is '
                 'currently down.')
