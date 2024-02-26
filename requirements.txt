@@ -19,7 +19,7 @@ importlib-metadata==4.11.2; python_version >= '3.7'
 jeepney==0.8.0; sys_platform == 'linux'
 keyring==23.5.0; python_version >= '3.7'
 multidict==6.0.2; python_version >= '3.7'
-orjson==3.6.7; python_version >= '3.7'
+orjson==3.9.15; python_version >= '3.8'
 py-cord==2.0.1; python_full_version >= '3.8.0'
 pycparser==2.21
 pygments==2.15.0; python_version >= '3.7'
