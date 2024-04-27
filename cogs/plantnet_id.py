@@ -1,5 +1,5 @@
 import os
-from discord import ApplicationContext, Embed, Colour, Attachment, option, File
+from discord import ApplicationContext, Embed, Colour, Attachment, option
 from discord.ext.commands import Cog, BucketType, slash_command, cooldown
 from dotenv import load_dotenv
 from processing import process_response
@@ -35,7 +35,7 @@ class PlantnetID(Cog):
 
     # ID from photos
     @slash_command(description="ID a plant from up to 5 photos")
-    @cooldown(20, 86400, BucketType.user)  # ENABLE IN PRODUCTION
+    @cooldown(20, 86400, BucketType.guild)  # ENABLE IN PRODUCTION
     @option("image1", Attachment, description="a photo", required=True)
     @option("image2", Attachment, description="a photo", required=False)
     @option("image3", Attachment, description="a photo", required=False)

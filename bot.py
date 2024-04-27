@@ -30,7 +30,7 @@ def convert_seconds(s):
 async def on_application_command_error(ctx, error):
     if isinstance(error, CommandOnCooldown):
         await ctx.respond(
-            f'You have reached the maximum requests allowed in 24h.\n\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
+            f'This server has reached the maximum requests allowed in 24h.\n\nPlease try again in {convert_seconds(error.retry_after)}, or consider using the PlantNet app that this bot is based on.')
     else:
         raise error
 
