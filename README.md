@@ -3,7 +3,7 @@
 
 Plant ID Bot identifies plants from photos of their organs, passing to the [Plantnet API] for identification. This bot was written for [Sustainable Living Hub](https://discord.com/invite/gQU5yWg)
 
-Invite this bot to your server with [this link.](https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot)
+If you wish to invite this bot to your server, use [this link.](https://discord.com/api/oauth2/authorize?client_id=948227126094598204&permissions=19520&scope=bot) However, your server will be limited to a maximum of 20 idendifications every 24h. It is strongly preferred that you host a version of this bot yourself and register for your own PlantNet API key. Details for this are later in this readme file.
 
 ## Features
 
@@ -31,12 +31,12 @@ If you fork this repository and wish to host your own version of this bot, you w
 - Create a new application and bot at the [Discord Developer Portal](https://discord.com/developers/applications). Follow this [guide](https://realpython.com/how-to-make-a-discord-bot-python/) if you are unsure.
 - Create a local .env file to store `DISCORD_TOKEN` and `PLANTNET_API_KEY`. Add both your bot's secret token and PlantNet API key here repectively.
 - Enable the bot permissions 'Read Messages/View Channels', 'Send Messages', 'Embed Links', 'Add Reactions'
-- Host the files on your platform of choice.
+- Host the files on your platform of choice. A Docker Compose file is supplied if that is the route you wish to take.
 - Add the bot's secret token and your PlantNet API key to your platform's environment variables under the keys `DISCORD_TOKEN` and `PLANTNET_API_KEY`. 
 
 ## Development
 
-Want to contribute? Simply clone/fork, edit and then create a pull request. Details of how to do this can be found [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github).
+Want to contribute? Simply fork, edit and then create a pull request. Details of how to do this can be found [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-pull-request-on-github).
 
 ## Credits
 - [themanifold](https://github.com/themanifold) who cast his careful eye over the code, making sure that I wasn't making any obvious errors, and for making my todo list longer each day
