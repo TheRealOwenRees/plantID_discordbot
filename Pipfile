@@ -22,7 +22,7 @@ importlib-metadata = "==4.11.2"
 keyring = "==23.5.0"
 multidict = "==6.0.2"
 orjson = "==3.9.15"
-py-cord = "==2.0.1"
+py-cord = "*"
 pygments = "==2.15.0"
 pyrate-limiter = "==2.6.0"
 python-dateutil = "==2.8.2"
@@ -41,6 +41,7 @@ wcwidth = "==0.2.5"
 yarl = "==1.7.2"
 zipp = "==3.7.0"
 cryptography = "*"
+pycord = "*"
 
 [dev-packages]
 
