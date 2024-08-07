@@ -39,7 +39,7 @@ url-normalize = "==1.4.3"
 urllib3 = "*"
 wcwidth = "==0.2.5"
 yarl = "==1.7.2"
-zipp = "==3.7.0"
+zipp = "==3.19.1"
 cryptography = "*"
 pycord = "*"
 
