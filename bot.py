@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 from discord import Game
 from discord.ext.commands import Bot, CommandOnCooldown
@@ -16,7 +17,6 @@ bot = Bot(
 )
 bot.add_cog(BotInfo(bot))
 bot.add_cog(PlantnetID(bot))
-
 
 # convert seconds into hours/minutes/seconds
 def convert_seconds(s):
