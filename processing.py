@@ -2,7 +2,7 @@ import json
 import requests
 
 from bs4 import BeautifulSoup
-from settings import base_url, headers, SCORE_LOWER_THRESHOLD, ALTERNATIVE_SCORE_LOWER_THRESHOLD
+from settings import identify_api_url, headers, SCORE_LOWER_THRESHOLD, ALTERNATIVE_SCORE_LOWER_THRESHOLD
 
 
 def plantnet_response(images):
@@ -16,9 +16,10 @@ def plantnet_response(images):
 
     for image in images:
         payload['images'].append(image)
-        payload['organs'].append('auto')  # TODO test if this part of the payload can be omitted
+        payload['organs'].append('auto')
 
-    req = requests.get(base_url, params=payload)
+    req = requests.get(identify_api_url, params=payload)
+
     if req.status_code == 200:
         json_data = json.loads(req.text)
 

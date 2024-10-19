@@ -1,18 +1,23 @@
-import os
+import requests
 from discord import ApplicationContext, Embed, Colour, Attachment, option
 from discord.ext.commands import Cog, BucketType, slash_command, cooldown
-from dotenv import load_dotenv
 from processing import process_response
-
-load_dotenv()  # load environment variables for test server
-API_KEY = os.getenv('PLANTNET_API_KEY')
-api_endpoint = f"https://my-api.plantnet.org/v2/identify/all?api-key={API_KEY}"
+from settings import API_KEY, identify_api_url, api_base_url
 
 
 class PlantnetID(Cog):
     def __init__(self, bot):
         self.bot = bot
         self.prefix = '/'
+
+    # API status
+    @slash_command(description="Check the status of the PlantNet API")
+    async def status(self, ctx):
+        response = requests.get(f"{api_base_url}/_status")
+        if response.status_code != 200:
+            await ctx.respond("The PlantNet API is currently down.")
+        else:
+            await ctx.respond("The PlantNet API is currently up and running.")
 
     # help menu
     @slash_command(description="Display the help menu")
