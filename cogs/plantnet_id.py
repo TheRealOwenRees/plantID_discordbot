@@ -11,8 +11,11 @@ def get_url(attachment):
         headers={
             "url": attachment.url, "Authorization": FILE_SERVER_SECRET_KEY
         })
-    filename = response.json()["filename"]
 
+    if response.status_code != 201:
+        return None
+
+    filename = response.json()["filename"]
     return f"{FILE_SERVER_IMAGES_URL}/{filename}"
 
 
@@ -66,6 +69,7 @@ class PlantnetID(Cog):
         await ctx.defer()
         attachments = [image1, image2, image3, image4, image5]
         image_paths = [get_url(attachments) for attachments in attachments if attachments is not None]
+        print(image_paths)
         images_message = "\n".join([f"[Original Image]({url})" for url in image_paths if url is not None])
 
         try:
@@ -83,3 +87,4 @@ class PlantnetID(Cog):
         #     for url in image_paths:
         #         file = url.split("/")[-1]
         #         requests.delete(f"{FILE_SERVER_URL}/{file}")
+        # need authorization header to delete files
