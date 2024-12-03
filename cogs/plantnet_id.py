@@ -87,4 +87,5 @@ class PlantnetID(Cog):
         #     for url in image_paths:
         #         file = url.split("/")[-1]
         #         requests.delete(f"{FILE_SERVER_URL}/{file}")
-        # need authorization header to delete files
+        # TODO need authorization header to delete files
+        # TODO delete all files every 24 hours
