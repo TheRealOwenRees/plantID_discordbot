@@ -2,7 +2,18 @@ import requests
 from discord import ApplicationContext, Embed, Colour, Attachment, option
 from discord.ext.commands import Cog, BucketType, slash_command, cooldown
 from processing import process_response
-from settings import API_KEY, identify_api_url, api_base_url
+from settings import api_base_url, FILE_SERVER_URL, FILE_SERVER_IMAGES_URL, FILE_SERVER_SECRET_KEY
+
+
+def get_url(attachment):
+    response = requests.post(
+        FILE_SERVER_URL,
+        headers={
+            "url": attachment.url, "Authorization": FILE_SERVER_SECRET_KEY
+        })
+    filename = response.json()["filename"]
+
+    return f"{FILE_SERVER_IMAGES_URL}/{filename}"
 
 
 class PlantnetID(Cog):
@@ -52,17 +63,23 @@ class PlantnetID(Cog):
             image1: Attachment, image2: Attachment, image3: Attachment,
             image4: Attachment, image5: Attachment,
     ):
+        await ctx.defer()
+        attachments = [image1, image2, image3, image4, image5]
+        image_paths = [get_url(attachments) for attachments in attachments if attachments is not None]
+        images_message = "\n".join([f"[Original Image]({url})" for url in image_paths if url is not None])
+
         try:
-            await ctx.defer()
-            attachments = [image1, image2, image3, image4, image5]
-            image_paths = [attachments.url for attachments in attachments if attachments is not None]
-            images_message = "\n".join([f"[Original Image]({url})" for url in image_paths if url is not None])
             id_result = process_response(image_paths)
             combined_message = id_result + "\n\n" + images_message
-            await ctx.respond(combined_message)  # change to ctx.followup.send?
+            await ctx.respond(combined_message)
 
         except Exception as e:
             print(e)
             await ctx.respond(
                 'There was a problem processing this image. Either the image format is incorrect or the API is '
                 'currently down.')
+
+        # finally:
+        #     for url in image_paths:
+        #         file = url.split("/")[-1]
+        #         requests.delete(f"{FILE_SERVER_URL}/{file}")
