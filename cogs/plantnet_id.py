@@ -68,9 +68,11 @@ class PlantnetID(Cog):
     ):
         await ctx.defer()
         attachments = [image1, image2, image3, image4, image5]
+
         image_paths = [get_url(attachments) for attachments in attachments if attachments is not None]
-        print(image_paths)
-        images_message = "\n".join([f"[Original Image]({url})" for url in image_paths if url is not None])
+
+        # use the original Discord image URLs to display them in the embed, allowing us to delete the processed images from the server
+        images_message = "\n".join([f"[Original Image]({url})" for url in attachments if url is not None])
 
         try:
             id_result = process_response(image_paths)
