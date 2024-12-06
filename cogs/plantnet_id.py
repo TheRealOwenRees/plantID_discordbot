@@ -85,9 +85,8 @@ class PlantnetID(Cog):
                 'There was a problem processing this image. Either the image format is incorrect or the API is '
                 'currently down.')
 
-        # finally:
-        #     for url in image_paths:
-        #         file = url.split("/")[-1]
-        #         requests.delete(f"{FILE_SERVER_URL}/{file}")
-        # TODO need authorization header to delete files
-        # TODO delete all files every 24 hours
+        finally:
+            # delete the processed images from the server
+            for url in image_paths:
+                file = url.split("/")[-1]
+                requests.delete(f"{FILE_SERVER_URL}/{file}", headers={"Authorization": FILE_SERVER_SECRET_KEY})
